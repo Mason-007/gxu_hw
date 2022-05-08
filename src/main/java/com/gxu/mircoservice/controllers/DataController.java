@@ -6,7 +6,8 @@ import com.gxu.mircoservice.dao.*;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.couchbase.CouchbaseProperties.Io;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,26 +37,26 @@ public class DataController {
         return data;
     }
 
-    @RequestMapping("/newAccount.do")
-    public void newAccount(String name, String money) {
+    @PostMapping("/newAccount.do")
+    public void newAccount(@RequestParam String name,@RequestParam String money) {
         String sql = "insert into accounts(name, money) values(\"" + name + "\"," + money + ");";
         createObj.createAccount(sql);
     }
 
-    @RequestMapping("/withdraw.do")
-    public void withdraw(String id, String money) {
+    @PostMapping("/withdraw.do")
+    public void withdraw(@RequestParam String id,@RequestParam String money) {
         String sql = "update accounts set money = money - " + money + " where id = " + id + ";";
         updateObj.setAccount(sql);
     }
 
-    @RequestMapping("/deposit.do")
-    public void deposit(String id, String money) {
+    @PostMapping("/deposit.do")
+    public void deposit(@RequestParam String id,@RequestParam String money) {
         String sql = "update accounts set money = money + " + money + " where id = " + id + ";";
         updateObj.setAccount(sql);
     }
 
-    @RequestMapping("/deleteAccount.do")
-    public void deleteAccount(String id) {
+    @PostMapping("/deleteAccount.do")
+    public void deleteAccount(@RequestParam String id) {
         String sql = "DELETE FROM ACCOUNTS WHERE ID = " + id + ";";
         deleteObj.delAccount(sql);
     }    

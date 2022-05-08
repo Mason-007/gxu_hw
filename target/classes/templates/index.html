@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- <link rel="icon" href="../../favicon.ico"> -->
+
+  <title>Dashboard Template for Bootstrap</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <!-- <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet"> -->
+
+  <!-- Custom styles for this template -->
+  <link href="css/dashboard.css" rel="stylesheet">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <!-- <script src="../../assets/js/ie-emulation-modes-warning.js"></script> -->
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Project name</a>
+      </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Logout</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input type="text" class="form-control" placeholder="Search...">
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+          <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
+          <li><a href="#">Reports</a></li>
+          <li><a href="#">Analytics</a></li>
+          <li><a href="#">Export</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <h1 class="page-header">Dashboard</h1>
+        <div class=btn-group>
+          <button class="btn btn-sm btn-primary" id="new-btn" data-toggle="modal" data-target="#myModal">new
+            account</button>
+        </div>
+
+        <!-- Modal for create -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                  onclick="cleanCreateForm()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Create new account</h4>
+              </div>
+              <div class="modal-body">
+                <form class="form-horizontal" id="createForm">
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-2 control-label" for="name-input">User Name:</label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" id="name-input" name="name"
+                        placeholder="please enter name..." required>
+                    </div>
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-2 control-label" for="money-input">Money:</label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" id="money-input" name="money"
+                        placeholder="please enter money..." required>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                  onclick="cleanCreateForm()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="newAccount()">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal for update -->
+        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                  onclick="cleanUpdateForm()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="updateModalLabel"></h4>
+              </div>
+              <div class="modal-body" id="update-modal-body">
+                <form class="form-horizontal" id="updateForm">
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-2 control-label" for="update-action-input">Action:</label>
+                    <div class="btn-group" data-toggle="buttons" style="margin-left: 15px;">
+                      <label class="btn btn-primary active">
+                        <input type="radio" name="action" value="deposit" checked> Deposit
+                      </label>
+                      <label class="btn btn-primary">
+                        <input type="radio" name="action" value="withdraw"> Withdraw
+                      </label>
+                    </div>
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-2 control-label" for="update-id-input">Account Id:</label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" id="update-id-input" disabled="disabled">
+                    </div>
+                  </div>
+                  <div class="form-group form-group-sm">
+                    <label class="col-sm-2 control-label" for="update-money-input">Money:</label>
+                    <div class="col-sm-6">
+                      <input class="form-control" type="text" id="update-money-input"
+                        placeholder="please enter money..." required>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"
+                  onclick="cleanUpdateForm()">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveUpdate()">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>accountId</th>
+                <th>username</th>
+                <th>money</th>
+                <th>action</th>
+              </tr>
+            </thead>
+            <tbody id="account_list">
+              <!-- <tr>
+                  <td>1,001</td>
+                  <td>Lorem</td>
+                  <td>dolor</td>
+                  <td>
+                  <button type="button" class="btn btn-xs btn-danger" onclick="deleteAcc(1005)">delete</button>
+                  </td>
+                </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+    integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+    crossorigin="anonymous"></script>
+  <!-- <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script> -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+  <!-- <script src="../../assets/js/vendor/holder.min.js"></script> -->
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <!-- <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script> -->
+  <script>
+    $(document).ready(function () {
+      showData();
+    })
+
+    // loading all accounts info from database
+    function showData() {
+      $.get("/showAllAccounts.do", function (data, status) {
+        console.log("data: " + data + "status: " + status);
+
+        $("#account_list").html("")
+        // Append product to the table
+        for (let i = 0; i < data.length; i++) {
+          $("#account_list").append(
+            "<tr>" +
+            "<td>" + data[i].accountId + "</td>" +
+            "<td>" + data[i].accountName + "</td>" +
+            "<td>" + data[i].money + "</td>" +
+            "<td>" +
+            "<button type='button' class='btn btn-xs btn-primary' data-toggle='modal' data-target='#updateModal' data-whatever=\"" + data[i].accountId + "\">存取</button>" +
+            "<button type='button' onclick='deleteAcc(this)' id = \"" + data[i].accountId + "\" class='btn btn-xs btn-danger'>删除</button>" +
+            "</td></tr>")
+        }
+      }, "json")
+
+    }
+
+    // delete account
+    function deleteAcc(ctl) {
+      var id = $(ctl).attr("id")
+      $.post("/deleteAccount.do", { "id": id }, function () {
+        $(ctl).parents("tr").remove()
+        console.log("delete done")
+      })
+    }
+
+    // create new account
+    function newAccount() {
+      var name = $("#name-input").val()
+      var money = $("#money-input").val()
+      $.post("/newAccount.do", { "name": name, "money": money }, function () {
+        location.reload()
+      })
+    }
+    // clean create form
+    function cleanCreateForm() {
+      $("#name-input").val("");
+      $("#money-input").val("");
+    }
+
+    // clean update form
+    function cleanUpdateForm() {
+      $("#update-id-input").val("");
+      $("#update-money-input").val("");
+    }
+
+    // insert id into update form
+    $('#updateModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget) // Button that triggered the modal
+      var id = button.data('whatever') // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+      modal.find('#updateModalLabel').text('You are taking action with id: ' + id)
+      modal.find('#update-modal-body #update-id-input').val(id)
+    })
+
+    // update account
+    function saveUpdate() {
+      var act = $('input:radio:checked').val()
+      var id = $('#update-id-input').val()
+      var money = $('#update-money-input').val()
+      //  console.log("act " + act + "id " + id + "money " + money)
+      if (act === "deposit") {
+         $.post("/deposit.do", {"id" : id, "money": money}, function(data, status){
+           if (status==="success"){
+             location.reload()
+           }else{
+             console.log("error: " + status)
+           }
+         })
+      }else{
+        $.post("/withdraw.do", {"id" : id, "money": money}, function(data, status){
+           if (status==="success"){
+             location.reload()
+           }else{
+             console.log("error: " + status)
+           }
+         })
+      }
+    }
+    
+  </script>
+</body>
+
+</html>
